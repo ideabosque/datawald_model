@@ -16,6 +16,8 @@ from pynamodb.attributes import (
 )
 from pynamodb.indexes import GlobalSecondaryIndex, LocalSecondaryIndex, AllProjection
 
+default_value = "#####"
+
 
 class BaseLocalSecondaryIndex(LocalSecondaryIndex):
     """
@@ -115,8 +117,8 @@ class TransactionModel(EntityBaseModel):
         table_name = "dw-transaction"
 
     src_id = UnicodeAttribute()
-    tgt_id = UnicodeAttribute(default="#####")
-    type = UnicodeAttribute()
+    tgt_id = UnicodeAttribute(default=default_value)
+    tx_type = UnicodeAttribute()
     data = MapAttribute()
     history = ListAttribute(of=MapAttribute)
     source_src_id_index = SourceSrcIdIndex()
@@ -127,7 +129,7 @@ class ProductModel(EntityBaseModel):
         table_name = "dw-product"
 
     sku = UnicodeAttribute()
-    tgt_id = UnicodeAttribute(default="#####")
+    tgt_id = UnicodeAttribute(default=default_value)
     attribute_set = UnicodeAttribute()
     data = MapAttribute()
     raw_data = MapAttribute()
@@ -140,8 +142,8 @@ class ProductExtModel(EntityBaseModel):
         table_name = "dw-productext"
 
     sku = UnicodeAttribute()
-    tgt_id = UnicodeAttribute(default="#####")
-    type = UnicodeAttribute()
+    tgt_id = UnicodeAttribute(default=default_value)
+    tx_type = UnicodeAttribute()
     data = ListAttribute()
     source_sku_index = SourceSKUIndex()
 
@@ -151,8 +153,8 @@ class BusinessEntityModel(EntityBaseModel):
         table_name = "dw-businessentity"
 
     identity = UnicodeAttribute()
-    tgt_id = UnicodeAttribute(default="#####")
-    type = UnicodeAttribute()
+    tgt_id = UnicodeAttribute(default=default_value)
+    tx_type = UnicodeAttribute()
     data = MapAttribute()
     source_identity_index = SourceIdentityIndex()
 

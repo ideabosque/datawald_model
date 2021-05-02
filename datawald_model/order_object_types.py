@@ -4,7 +4,8 @@ from __future__ import print_function
 
 __author__ = "bibow"
 
-from graphene import ObjectType, InputObjectType, String, Decimal, DateTime, List, Field
+from graphene import ObjectType, String, Decimal, DateTime, List, Field
+from .common_object_types import TransactionType
 
 
 class OrderItemType(ObjectType):
@@ -40,14 +41,8 @@ class OrderDataType(ObjectType):
 
 
 class OrderType(ObjectType):
-    id = String()
-    source = String()
-    src_id = String()
-    tgt_id = String()
-    type = String()
+    class Meta:
+        interfaces = (TransactionType,)
+
     data = Field(OrderDataType)
     history = List(OrderDataType)
-    created_at = DateTime()
-    updated_at = DateTime()
-    tx_note = String()
-    tx_status = String()
