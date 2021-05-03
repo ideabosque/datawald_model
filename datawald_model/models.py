@@ -159,29 +159,28 @@ class BusinessEntityModel(EntityBaseModel):
     source_identity_index = SourceIdentityIndex()
 
 
-class SyncTaskEntityMap(MapAttribute):
+class EntityMap(MapAttribute):
     source = UnicodeAttribute()
     id = UnicodeAttribute()
     task_note = UnicodeAttribute()
     task_status = UnicodeAttribute()
-    updated_at = UnicodeAttribute()
+    updated_at = UTCDateTimeAttribute()
 
 
-class SyncControlModel(BaseModel):
+class SyncTaskModel(BaseModel):
     class Meta(BaseModel.Meta):
-        table_name = "dw-synccontrol"
+        table_name = "dw-synctask"
 
     task = UnicodeAttribute(hash_key=True)
     id = UnicodeAttribute(range_key=True)
     source = UnicodeAttribute()
     target = UnicodeAttribute()
+    table = UnicodeAttribute()
     cut_date = UTCDateTimeAttribute()
     start_date = UTCDateTimeAttribute()
     end_date = UTCDateTimeAttribute()
     offset = NumberAttribute()
-    table = UnicodeAttribute()
-    task = UnicodeAttribute()
     sync_note = UnicodeAttribute()
     sync_status = UnicodeAttribute()
-    entities = ListAttribute(of=SyncTaskEntityMap)
+    entities = ListAttribute(of=EntityMap)
     task_source_index = TaskSourceIndex()
